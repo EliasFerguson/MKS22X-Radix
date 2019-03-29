@@ -29,4 +29,22 @@ public class MyLinkedList<E> {
       return "" + data;
     }
   }
+  public String toString() {
+
+  }
+  public MyLinkedList() {
+
+  }
+  public void clear() {
+
+  }
+  public boolean add(E in) {
+
+  }
+  public void extend(MyLinkedList<E> in) {
+
+  }
+  public E removeFront() {
+    
+  }
 }
