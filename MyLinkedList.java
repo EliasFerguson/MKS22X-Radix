@@ -50,6 +50,9 @@ public class MyLinkedList<E> {
     start = null;
     end = null;
   }
+  public int size() {
+    return size;
+  }
   public void clear() {
     size = 0;
     start = null;
@@ -68,8 +71,17 @@ public class MyLinkedList<E> {
     }
     size++;
   }
-  public void extend(MyLinkedList<E> in) {
-
+  public void extend(MyLinkedList<E> other) {
+    Node otherStart = other.start;
+    Node otherEnd = other.end;
+    end.setNext(otherStart);
+    otherStart.setPrev(end);
+    end = otherEnd;
+    size += other.size();
+    MyLinkedList spare = new MyLinkedList();
+    other.start = spare.start;
+    other.end = spare.end;
+    other.size = spare.size;
   }
   public E removeFront() {
     E returner = start.getData();
