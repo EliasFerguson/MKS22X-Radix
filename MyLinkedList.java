@@ -29,6 +29,8 @@ public class MyLinkedList<E> {
       return "" + data;
     }
   }
+  private int size;
+  private Node start, end;
   public String toString() {
 
   }
@@ -45,6 +47,6 @@ public class MyLinkedList<E> {
 
   }
   public E removeFront() {
-    
+
   }
 }
