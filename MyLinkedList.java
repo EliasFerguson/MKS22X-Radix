@@ -60,6 +60,9 @@ public class MyLinkedList<E> {
 
   }
   public E removeFront() {
-
+    E returner = start.getData();
+    start = start.next();
+    size--;
+    return returner;
   }
 }
