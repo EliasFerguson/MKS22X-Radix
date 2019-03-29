@@ -2,8 +2,10 @@ public class MyLinkedList<E> {
   private class Node {
     private E data;
     private Node next, prev;
-    private Node(E in) {
+    private Node(E in, Node nextIn, Node prevIn) {
       data = in;
+      next = nextIn;
+      prev = prevIn;
     }
     private Node next() {
       return next;
@@ -53,8 +55,18 @@ public class MyLinkedList<E> {
     start = null;
     end = null;
   }
-  public boolean add(E in) {
-
+  public void add(E in) {
+    if (size == 0) {
+      Node n = new Node(in, null, null);
+      start = n;
+      end = n;
+    }
+    else {
+      Node n = new Node(in, end, null);
+      end = n;
+      n.prev().setNext(n);
+    }
+    size++;
   }
   public void extend(MyLinkedList<E> in) {
 
