@@ -35,10 +35,14 @@ public class MyLinkedList<E> {
 
   }
   public MyLinkedList() {
-
+    size = 0;
+    start = null;
+    end = null;
   }
   public void clear() {
-
+    size = 0;
+    start = null;
+    end = null;
   }
   public boolean add(E in) {
 
