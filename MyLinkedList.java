@@ -78,7 +78,7 @@ public class MyLinkedList<E> {
     otherStart.setPrev(end);
     end = otherEnd;
     size += other.size();
-    MyLinkedList spare = new MyLinkedList();
+    MyLinkedList<E> spare = new MyLinkedList<E>();
     other.start = spare.start;
     other.end = spare.end;
     other.size = spare.size;
