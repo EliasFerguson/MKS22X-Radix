@@ -9,9 +9,24 @@ public class Radix {
     @SuppressWarnings({"unchecked", "rawtypes"})
     MyLinkedList<Integer>[] buckets = new MyLinkedList[20];
     int maxLength = findMaxLength(data);
+    int idx = 0;
+    while (idx < maxLength) {
+      if (idx == 0) {
+        for (int i = 0; i < data.length; i++) {
+          String temp = data[i]+"";
+          Integer digit = Integer.parseInt(temp.charAt(idx) + "");
+          if (data[i] < 0) {
+            buckets[9 - digit].add(data[i]);
+          }
+          else {
+            buckets[10 + digit].add(data[i]);
+          }
+        }
+      }
+    }
   }
   public static int findMaxLength(int[] data) {
-    if (data.length == 0) return 1;
+    if (data.length == 0) return 0;
     int returner = 0;
     int current = 0;
     for (int num:data) {
