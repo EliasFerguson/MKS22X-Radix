@@ -23,6 +23,27 @@ public class Radix {
           }
         }
       }
+      else {
+        int bucket = 0;
+        while (bucket != buckets.length) {
+          if (buckets[bucket].size() == 0) bucket++;
+          else {
+            int myLLI = 0;
+            while (myLLI < buckets[bucket].size()) {
+              Integer tempI = buckets[bucket].removeFront();
+              String temp = tempI + "";
+              Integer digit = Integer.parseInt(temp.charAt(idx) + "");
+              if (tempI < 0) {
+                buckets[9 - digit].add(tempI);
+              }
+              else {
+                buckets[10 + digit].add(tempI);
+              }
+            }
+          }
+        }
+      }
+      idx++;
     }
   }
   public static int findMaxLength(int[] data) {
