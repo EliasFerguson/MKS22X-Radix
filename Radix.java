@@ -45,6 +45,7 @@ public class Radix {
       }
       idx++;
     }
+    merge(data, buckets);
   }
   public static int findMaxLength(int[] data) {
     if (data.length == 0) return 0;
@@ -58,5 +59,20 @@ public class Radix {
       returner++;
     }
     return returner;
+  }
+  public static void merge(int[] data, MyLinkedList<Integer>[] buckets) {
+    int bucket = 0;
+    int dI = 0;
+    while (bucket < buckets.length && dI < data.length) {
+      if (buckets[bucket].size() == 0) bucket++;
+      else {
+        int myLLI = 0;
+        while (myLLI < buckets[bucket].size()) {
+          Integer tempI = buckets[bucket].removeFront();
+          data[dI] = tempI;
+          dI++;
+        }
+      }
+    }
   }
 }
