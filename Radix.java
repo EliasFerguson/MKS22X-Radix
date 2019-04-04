@@ -44,7 +44,7 @@ public class Radix {
     MyLinkedList<Integer> spare = new MyLinkedList<Integer>();
     int passes = findMaxLength(data);
     int idx = 0;
-    while (idx < passes) {
+    while (idx <= passes) {
       if (idx == 0) {
         firstPass(data, buckets);
       }
