@@ -35,7 +35,6 @@ public class Radix {
     System.out.println();
   }
 }
-
   public static void radixsort(int[] data) {
     @SuppressWarnings({"unchecked", "rawtypes"})
     MyLinkedList<Integer>[] buckets = new MyLinkedList[20];
