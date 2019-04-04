@@ -14,43 +14,41 @@ public class Radix {
     }
     int passes = findMaxLength(data);
     int idx = 0;
-    while (idx < maxLength) {
+    while (idx < passes) {
       if (idx == 0) {
-
+        firstPass(data, buckets);
       }
       else {
-        int bucket = 0;
-        while (bucket != buckets.length) {
-          if (buckets[bucket].size() == 0) bucket++;
-          else {
-            int myLLI = 0;
-            while (myLLI < buckets[bucket].size()) {
-              Integer tempI = buckets[bucket].removeFront();
-              String temp = tempI + "";
-              Integer digit = Integer.parseInt(temp.charAt(idx) + "");
-              if (tempI < 0) {
-                buckets[9 - digit].add(tempI);
-              }
-              else {
-                buckets[10 + digit].add(tempI);
-              }
-            }
-          }
-        }
+
       }
       idx++;
     }
     merge(data, buckets);
   }
-  private static void firstPass(int[] data, MyLinkedList<Integer> buckets) {
+  private static void firstPass(int[] data, MyLinkedList<Integer>[] buckets) {
     for (int i = 0; i < data.length; i++) {
-      String temp = data[i]+"";
-      Integer digit = Integer.parseInt(temp.charAt(idx) + "");
-      if (data[i] < 0) {
-        buckets[9 - digit].add(data[i]);
-      }
+      int curr = data[i];
+      int digit = curr % 10;
+      buckets[digit+9].add(curr);
+    }
+  }
+  private static void pass(MyLinkedList<Integer> data, int idx, MyLinkedList<Integer>[] buckets) {
+    int bucket = 0;
+    while (bucket != buckets.length) {
+      if (buckets[bucket].size() == 0) bucket++;
       else {
-        buckets[10 + digit].add(data[i]);
+        int myLLI = 0;
+        while (myLLI < buckets[bucket].size()) {
+          Integer tempI = buckets[bucket].removeFront();
+          String temp = tempI + "";
+          Integer digit = Integer.parseInt(temp.charAt(idx) + "");
+          if (tempI < 0) {
+            buckets[9 - digit].add(tempI);
+          }
+          else {
+            buckets[10 + digit].add(tempI);
+          }
+        }
       }
     }
   }
