@@ -1,5 +1,5 @@
 import java.util.*;
-
+import java.io.*;
 public class Radix {
   public static void main(String[] args) {
     int[] data = {1, 5, 7, 2, 4, 4, 2, 0};
@@ -12,6 +12,7 @@ public class Radix {
     for (int i = 0; i < buckets.length; i++) {
       buckets[i] = new MyLinkedList<Integer>();
     }
+    MyLinkedList<Integer> spare = new MyLinkedList<Integer>();
     int passes = findMaxLength(data);
     int idx = 0;
     while (idx < passes) {
@@ -19,7 +20,7 @@ public class Radix {
         firstPass(data, buckets);
       }
       else {
-
+        pass(spare, idx, buckets);
       }
       idx++;
     }
@@ -33,23 +34,15 @@ public class Radix {
     }
   }
   private static void pass(MyLinkedList<Integer> data, int idx, MyLinkedList<Integer>[] buckets) {
-    int bucket = 0;
-    while (bucket != buckets.length) {
-      if (buckets[bucket].size() == 0) bucket++;
-      else {
-        int myLLI = 0;
-        while (myLLI < buckets[bucket].size()) {
-          Integer tempI = buckets[bucket].removeFront();
-          String temp = tempI + "";
-          Integer digit = Integer.parseInt(temp.charAt(idx) + "");
-          if (tempI < 0) {
-            buckets[9 - digit].add(tempI);
-          }
-          else {
-            buckets[10 + digit].add(tempI);
-          }
-        }
-      }
+    Node<Integer> curr = data.getStart();
+    int val = curr.getData();
+    int digit = val / (int) Math.pow(10, idx) % 10;
+    buckets[digit + 9].add(val);
+    while (curr.hasNext()) {
+      curr = curr.next();
+      val = curr.getData();
+      digit = val / (int) Math.pow(10, idx) % 10;
+      buckets[digit + 9].add(val);
     }
   }
   public static int findMaxLength(int[] data) {
