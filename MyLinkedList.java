@@ -13,6 +13,10 @@ public class MyLinkedList<E> {
     private Node prev() {
       return prev;
     }
+    private boolean hasNext() {
+      if (next == null) return false;
+      return true;
+    }
     private void setNext(Node other) {
       next = other;
     }
