@@ -70,22 +70,23 @@ public class MyLinkedList<E> {
     }
     else {
       Node n = new Node(in, end, null);
+      end.setNext(n);
       end = n;
-      n.prev().setNext(n);
     }
     size++;
   }
   public void extend(MyLinkedList<E> other) {
-    Node otherStart = other.start;
-    Node otherEnd = other.end;
-    end.setNext(otherStart);
-    otherStart.setPrev(end);
-    end = otherEnd;
-    size += other.size();
-    MyLinkedList<E> spare = new MyLinkedList<E>();
-    other.start = spare.start;
-    other.end = spare.end;
-    other.size = spare.size;
+    if (size == 0) {
+      start = other.start;
+      end = other.end;
+    }
+    else if (other.size > 0) {
+      end.setNext(other.start);
+      other.start.setPrev(this.end);
+      end = other.end;
+    }
+    size += other.size;
+    other.clear();
   }
   public E removeFront() {
     E returner = start.getData();
