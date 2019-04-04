@@ -94,4 +94,7 @@ public class MyLinkedList<E> {
     size--;
     return returner;
   }
+  public E iterator(Node n) {
+    return n.next().getData();
+  }
 }
