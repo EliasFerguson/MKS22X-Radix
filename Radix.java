@@ -1,5 +1,6 @@
 import java.util.*;
 import java.io.*;
+@SuppressWarnings({"unchecked", "rawtypes"})
 public class Radix {
   public static void main(String[]args){
   System.out.println("Size\t\tMax Value\tquick/builtin ratio ");
@@ -36,15 +37,14 @@ public class Radix {
   }
 }
   public static void radixsort(int[] data) {
-    @SuppressWarnings({"unchecked", "rawtypes"})
+    @SuppressWarnings("unchecked")
     MyLinkedList<Integer>[] buckets = new MyLinkedList[20];
     for (int i = 0; i < buckets.length; i++) {
       buckets[i] = new MyLinkedList<Integer>();
     }
     MyLinkedList<Integer> spare = new MyLinkedList<Integer>();
     int passes = findMaxLength(data);
-    int idx = 0;
-    while (idx <= passes) {
+    for (int idx = 0; idx <= passes; idx++) {
       if (idx == 0) {
         firstPass(data, buckets);
       }
@@ -55,7 +55,6 @@ public class Radix {
       for (int i2 = 0; i2 < buckets.length; i2++) {
         spare.extend(buckets[i2]);
       }
-      idx++;
     }
     merge(data, spare);
   }
@@ -78,18 +77,21 @@ public class Radix {
       buckets[digit + 9].add(val);
     }
   }
-  public static int findMaxLength(int[] data) {
+  public static int getMax(int[] data) {
     if (data.length == 0) return 0;
-    int returner = 0;
-    int current = 0;
-    for (int num:data) {
-      current = Math.max(Math.abs(num), current);
+    int max = data[0];
+    for(int i = 1; i < data.length; i++){
+      if(data[i] > max){
+        max = data[i];
+      }
     }
-    while (current != 0) {
-      current /= 10;
-      returner++;
-    }
-    return returner;
+    return max;
+  }
+  public static int findMaxLength(int[] data) {
+    int max = getMax(data);
+    if (max == 0) return 0;
+    String temp = "" + max;
+    return temp.length() - 1;
   }
   public static void merge(int[] data, MyLinkedList<Integer> spare) {
     Node<Integer> n = spare.getStart();

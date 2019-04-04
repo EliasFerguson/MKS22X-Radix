@@ -1,3 +1,4 @@
+import java.util.*;
 public class MyLinkedList<E> {
   private int size;
   private Node<E> start, end;
@@ -47,19 +48,13 @@ public class MyLinkedList<E> {
       start = other.start;
       end = other.end;
     }
-    else if (other.size > 0) {
+    else if (other.size != 0) {
       end.setNext(other.start);
       other.start.setPrev(this.end);
       end = other.end;
     }
     size += other.size;
     other.clear();
-  }
-  public E removeFront() {
-    E returner = start.getData();
-    start = start.next();
-    size--;
-    return returner;
   }
   public E iterator(Node<E> n) {
     return n.next().getData();
