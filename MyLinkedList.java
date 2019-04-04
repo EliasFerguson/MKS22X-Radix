@@ -75,6 +75,9 @@ public class MyLinkedList<E> {
     }
     size++;
   }
+  public Node getStart() {
+    return start;
+  }
   public void extend(MyLinkedList<E> other) {
     if (size == 0) {
       start = other.start;
