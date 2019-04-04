@@ -22,9 +22,13 @@ public class Radix {
       else {
         pass(spare, idx, buckets);
       }
+      spare.clear();
+      for (int i2 = 0; i2 < buckets.length; i2++) {
+        spare.extend(buckets[i2]);
+      }
       idx++;
     }
-    merge(data, buckets);
+    merge(data, spare);
   }
   private static void firstPass(int[] data, MyLinkedList<Integer>[] buckets) {
     for (int i = 0; i < data.length; i++) {
@@ -58,19 +62,14 @@ public class Radix {
     }
     return returner;
   }
-  public static void merge(int[] data, MyLinkedList<Integer>[] buckets) {
-    int bucket = 0;
-    int dI = 0;
-    while (bucket < buckets.length && dI < data.length) {
-      if (buckets[bucket].size() == 0) bucket++;
-      else {
-        int myLLI = 0;
-        while (myLLI < buckets[bucket].size()) {
-          Integer tempI = buckets[bucket].removeFront();
-          data[dI] = tempI;
-          dI++;
-        }
-      }
+  public static void merge(int[] data, MyLinkedList<Integer> spare) {
+    Node<Integer> n = spare.getStart();
+    data[0] = n.getData();
+    int i = 1;
+    while (n.hasNext()) {
+      n = n.next();
+      data[i] = n.getData();
+      i++;
     }
   }
 }
